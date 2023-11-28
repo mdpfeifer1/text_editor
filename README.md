@@ -16,6 +16,7 @@ Text Editor web application that can be installed on a desktop
 
 ## Usage
 
+https://boiling-river-77157-4cbc48d56b92.herokuapp.com/
 
 ## Credits
 
