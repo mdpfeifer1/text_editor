@@ -18,12 +18,47 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: './index.html', // Specify your HTML template file
+        filename: 'index.html', // Output HTML filename
+      }),
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: 'text editor',
+        short_name: 'Jate',
+        description: 'Take notes with Javascript',
+        background_color: '#ffffff',
+        theme_color: '#000000',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+          },
+        ],
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js', // Path to your service worker file
+        swDest: 'src-sw.js'}),
       
     ],
 
     module: {
       rules: [
-        
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+            },
+          },
+        },
       ],
     },
   };
